@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import com.megamott.rl2_legengs.abstracts.fragments.QuestionFragment
+import com.megamott.rl2_legengs.abstracts.view.fragments.LoginFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,14 +14,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        button = findViewById(R.id.RL_button)
-    }
-
-    fun onClickShowQuestion(view: View) {
         supportFragmentManager.beginTransaction()
-            .add(R.id.question_container, QuestionFragment())
+            .add(R.id.question_container, LoginFragment())
             .addToBackStack(null)
             .commit()
-        button.visibility = View.INVISIBLE
     }
 }
