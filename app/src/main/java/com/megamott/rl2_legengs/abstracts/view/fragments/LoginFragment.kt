@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModelProvider
 import com.megamott.rl2_legengs.R
 import com.megamott.rl2_legengs.abstracts.view_model.LoginViewModel
 
@@ -33,11 +33,10 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mLoginViewModel: LoginViewModel =
-            ViewModelProvider(this).get(LoginViewModel::class.java)
+        val mLoginViewModel by viewModels<LoginViewModel>()
         val count: LiveData<Int> =
             mLoginViewModel.getInitialCount()  // get countLiveData from LoginViewModel
-        count.observe(this, {  // observe on changes of countLiveData in LoginViewModel
+        count.observe(viewLifecycleOwner, {  // observe on changes of countLiveData in LoginViewModel
             textView.text = "Counter: $it"
         })
 

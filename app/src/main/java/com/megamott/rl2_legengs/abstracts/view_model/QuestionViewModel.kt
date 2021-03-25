@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.megamott.rl2_legengs.abstracts.entity.Question
-import com.megamott.rl2_legengs.abstracts.repo.QuestionRepoImplHardcore
+import com.megamott.rl2_legengs.abstracts.repo.impl.QuestionRepoImplHardcore
 import com.megamott.rl2_legengs.abstracts.repo.QuestionsRepo
 
 class QuestionViewModel : ViewModel() {

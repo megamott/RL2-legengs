@@ -1,7 +1,8 @@
-package com.megamott.rl2_legengs.abstracts.repo
+package com.megamott.rl2_legengs.abstracts.repo.impl
 
 import androidx.lifecycle.MutableLiveData
 import com.megamott.rl2_legengs.abstracts.entity.Question
+import com.megamott.rl2_legengs.abstracts.repo.QuestionsRepo
 
 class QuestionRepoImplHardcore : QuestionsRepo {
     private val questions = MutableLiveData<ArrayList<Question>>()
