@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
         if (supportFragmentManager.findFragmentById(R.id.login_container) == null) {
             supportFragmentManager.beginTransaction()
                 .add(R.id.login_container, LoginFragment())
-                .addToBackStack(null)
                 .commit()
         }
     }

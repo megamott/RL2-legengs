@@ -1,16 +1,20 @@
 package com.megamott.rl2_legengs.abstracts.repo.impl
 
-import androidx.lifecycle.MutableLiveData
 import com.megamott.rl2_legengs.abstracts.entity.Question
 import com.megamott.rl2_legengs.abstracts.repo.QuestionsRepo
+import java.util.*
+import kotlin.NoSuchElementException
 
 class QuestionRepoImplHardcore : QuestionsRepo {
-    private val questions = MutableLiveData<ArrayList<Question>>()
 
-    override fun getQuestions() : MutableLiveData<ArrayList<Question>>{
-        questions.value = arrayListOf(Question(1, "A", "AA", arrayListOf("AAA")),
-                                      Question(2, "B", "BB", arrayListOf("BBB"))
-        )
-        return questions
+    private val questionsQueue : Queue<Question> = LinkedList()
+
+    init {
+        questionsQueue.add(Question(1, "A", "AA", arrayListOf("AAA")))
+        questionsQueue.add(Question(2, "B", "BB", arrayListOf("BBB")))
+    }
+
+    override fun getQuestion() : Question? {
+        return if (!questionsQueue.isEmpty()) questionsQueue.poll() else throw NoSuchElementException("Queue is empty!")
     }
 }

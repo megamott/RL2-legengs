@@ -16,6 +16,7 @@ class LoginFragment : Fragment() {
 
     private lateinit var textView: TextView
     private lateinit var countButton: Button
+    private val mLoginViewModel by viewModels<LoginViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,9 +34,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mLoginViewModel by viewModels<LoginViewModel>()
-        val count: LiveData<Int> =
-            mLoginViewModel.getInitialCount()  // get countLiveData from LoginViewModel
+        val count: LiveData<Int> = mLoginViewModel.getInitialCount()  // get countLiveData from LoginViewModel
         count.observe(viewLifecycleOwner, {  // observe on changes of countLiveData in LoginViewModel
             textView.text = "Counter: $it"
         })
@@ -44,7 +43,6 @@ class LoginFragment : Fragment() {
             mLoginViewModel.setCurrentCount()
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.login_container, QuestionFragment())
-                ?.addToBackStack("question")
                 ?.commit()
         }
     }
