@@ -5,7 +5,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 
 class LoginViewModel(state : SavedStateHandle) : ViewModel() {
-
     // saved state map
     private val savedStateHandle = state
     // every time I create a viewModel, the data in this field comes from the map

@@ -13,7 +13,6 @@ import com.megamott.rl2_legengs.R
 import com.megamott.rl2_legengs.abstracts.view_model.LoginViewModel
 
 class LoginFragment : Fragment() {
-
     private lateinit var textView: TextView
     private lateinit var countButton: Button
     private val mLoginViewModel by viewModels<LoginViewModel>()

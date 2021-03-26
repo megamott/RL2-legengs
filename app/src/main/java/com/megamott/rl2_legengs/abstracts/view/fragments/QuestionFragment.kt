@@ -37,7 +37,7 @@ class QuestionFragment : Fragment() {
             questionViewModel.queryNextQuestion()
         }
 
-        questionViewModel.question.observe(viewLifecycleOwner, {
+        questionViewModel.questionLiveData.observe(viewLifecycleOwner, {
             if (it != null) {
                 questionTextView.text = it.qText
             }
