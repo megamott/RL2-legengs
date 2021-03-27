@@ -33,7 +33,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val count: LiveData<Int> = mLoginViewModel.getInitialCount()  // get countLiveData from LoginViewModel
+        val count: LiveData<Int> = mLoginViewModel.getInitialCount()
         count.observe(viewLifecycleOwner, {  // observe on changes of countLiveData in LoginViewModel
             textView.text = "Counter: $it"
         })

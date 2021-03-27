@@ -12,7 +12,7 @@ class QuestionViewModel(state: SavedStateHandle) : ViewModel() {
     private val savedStateHandle = state
     private val questions = questionsRepo.getQuestions()
     private var questionNumber: Int? = savedStateHandle[QUESTION_NUMBER] ?: 0
-    // only if questionNumber and questions are not null
+
     var questionLiveData = MutableLiveData<Question>(questionNumber?.let { questions?.get(it) })
 
     companion object {
@@ -23,7 +23,6 @@ class QuestionViewModel(state: SavedStateHandle) : ViewModel() {
         if (questions != null) {
             questionNumber = if (questionNumber!! < questions.size - 1) questionNumber?.plus(1) else 0
             savedStateHandle[QUESTION_NUMBER] = questionNumber
-            // only if questionNumber and questions are not null
             questionLiveData.value = questionNumber?.let { questions[it] }
         }
     }
