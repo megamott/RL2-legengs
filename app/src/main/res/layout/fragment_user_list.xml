@@ -7,20 +7,6 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <EditText
-        android:id="@+id/add_question_editor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/questions"
-        android:autofillHints="@string/questions"
-        android:inputType="text"/>
-
-    <Button
-        android:id="@+id/add_question_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add"/>
-
     <TextView
         tools:text="@string/app_name"
         android:id="@+id/current_question"
