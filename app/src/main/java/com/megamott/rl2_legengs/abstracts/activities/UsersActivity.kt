@@ -1,7 +1,8 @@
-package com.megamott.rl2_legengs
+package com.megamott.rl2_legengs.abstracts.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.megamott.rl2_legengs.R
 import com.megamott.rl2_legengs.abstracts.view.fragments.UserListFragment
 
 class UsersActivity : AppCompatActivity() {

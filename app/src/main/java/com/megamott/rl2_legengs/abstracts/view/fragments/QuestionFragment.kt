@@ -39,7 +39,7 @@ class QuestionFragment : Fragment() {
 
         questionViewModel.questionLiveData.observe(viewLifecycleOwner, {
             if (it != null) {
-                questionTextView.text = it.qText
+                questionTextView.text = it.text
             }
         })
     }

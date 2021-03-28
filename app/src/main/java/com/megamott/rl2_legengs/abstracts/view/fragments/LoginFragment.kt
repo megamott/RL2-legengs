@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import com.megamott.rl2_legengs.R
-import com.megamott.rl2_legengs.UsersActivity
+import com.megamott.rl2_legengs.abstracts.activities.UsersActivity
 import com.megamott.rl2_legengs.abstracts.view_model.LoginViewModel
 
 class LoginFragment : Fragment() {
