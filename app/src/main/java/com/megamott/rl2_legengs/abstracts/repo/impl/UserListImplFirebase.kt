@@ -4,21 +4,20 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.megamott.rl2_legengs.abstracts.repo.UserListRepo
-import com.megamott.rl2_legengs.abstracts.util.*
+import com.megamott.rl2_legengs.abstracts.util.REF_DATABASE_ROOT
+import com.megamott.rl2_legengs.abstracts.util.initFirebase
 
 class UserListImplFirebase : UserListRepo {
-    private val usersList = StringBuilder()
+    private val usersList : MutableList<String> = ArrayList()
 
-    override fun getUsers(): StringBuilder {
+    init {
         initFirebase()
-
         val getData = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (i in snapshot.children){
-                    val id = i.child("1").child(CHILD_ID).value
-                    val answer = i.child("1").child(CHILD_ANSWER).value
-                    val text = i.child("2").child(CHILD_TEXT).value
-                    usersList.append("$id $text $answer")
+                if (usersList.isNotEmpty()) usersList.clear()
+                for (ds in snapshot.children){
+                    val user = ds.value
+                    usersList.add(user.toString())
                 }
             }
 
@@ -27,7 +26,9 @@ class UserListImplFirebase : UserListRepo {
         }
 
         REF_DATABASE_ROOT.addValueEventListener(getData)
-        REF_DATABASE_ROOT.addListenerForSingleValueEvent(getData)
+    }
+
+    override fun getUsers(): MutableList<String> {
         return usersList
     }
 

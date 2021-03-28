@@ -5,18 +5,19 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.megamott.rl2_legengs.abstracts.repo.UserListRepo
 import com.megamott.rl2_legengs.abstracts.repo.impl.UserListImplFirebase
+import java.lang.StringBuilder
 
-class UserListViewModel(state: SavedStateHandle) : ViewModel() {
+class UserListViewModel() : ViewModel() {
     private val userListRepo : UserListRepo = UserListImplFirebase()
-    private val savedStateHandle = state
-    var userListLiveData = MutableLiveData(savedStateHandle[USER_LIST] ?: StringBuilder(""))
+    var userListLiveData : MutableLiveData<List<String>> = MutableLiveData()
 
-    companion object {
-        private const val USER_LIST = "users_list"
+    init {
+        val users = userListRepo.getUsers()
+        userListLiveData.value = users
     }
 
     fun queryUserList(){
-        userListLiveData.value = userListRepo.getUsers()
-        savedStateHandle[USER_LIST] = userListLiveData.value
+        val users = userListRepo.getUsers()
+        userListLiveData.value = users
     }
 }
