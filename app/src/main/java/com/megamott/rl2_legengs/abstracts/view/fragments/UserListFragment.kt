@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.megamott.rl2_legengs.R
 import com.megamott.rl2_legengs.abstracts.view.adapter.UserListAdapter
 import com.megamott.rl2_legengs.abstracts.view_model.UserListViewModel
-import com.megamott.rl2_legengs.abstracts.view_model.dataLoadedListener.DataLoadListener
 
 
 class UserListFragment : Fragment() {
