@@ -4,21 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ListView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.megamott.rl2_legengs.R
-import com.megamott.rl2_legengs.abstracts.util.initFirebase
+import com.megamott.rl2_legengs.abstracts.view.adapter.UserListAdapter
 import com.megamott.rl2_legengs.abstracts.view_model.UserListViewModel
-import java.lang.StringBuilder
+import com.megamott.rl2_legengs.abstracts.view_model.dataLoadedListener.DataLoadListener
 
 
-class UserListFragment : Fragment() {
-    private lateinit var userListTextView : TextView
-    private lateinit var userListButton : Button
+class UserListFragment : Fragment(), DataLoadListener {
+    private lateinit var userListView : RecyclerView
+    private lateinit var userListAdapter: UserListAdapter
     private val userListViewModel by viewModels<UserListViewModel>()
 
     override fun onCreateView(
@@ -28,22 +26,28 @@ class UserListFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_user_list, container, false)
 
-        userListTextView = view.findViewById(R.id.user_list_text_view)
-        userListButton = view.findViewById(R.id.user_button)
-
-        userListButton.setOnClickListener {
-            userListViewModel.queryUserList()
-        }
+        userListView = view.findViewById(R.id.user_list_recycler)
+        userListView.setHasFixedSize(true)
+        userListView.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
+        userListViewModel.init(this)
+        userListAdapter = userListViewModel.getUsersLiveData().value?.let { this.context?.let { it1 ->
+            UserListAdapter(it,
+                it1
+            )
+        } }!!
+        userListView.adapter = userListAdapter
 
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
 
-        userListViewModel.userListLiveData.observe(viewLifecycleOwner, {
+    override fun onLoad() {
+        userListViewModel.getUsersLiveData().observe(viewLifecycleOwner, {
             if (it != null) {
-                userListTextView.text = it.toString()
+                userListAdapter.notifyDataSetChanged()
             }
         })
     }

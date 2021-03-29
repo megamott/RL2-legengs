@@ -14,5 +14,5 @@ const val CHILD_OPTIONS = "options"
 const val NODE_USER = "user"
 
 fun initFirebase(){
-    REF_DATABASE_ROOT = FirebaseDatabase.getInstance().getReference(NODE_USER)
+    REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
 }

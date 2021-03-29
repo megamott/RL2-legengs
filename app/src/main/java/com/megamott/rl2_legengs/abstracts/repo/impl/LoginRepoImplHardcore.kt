@@ -1,10 +1,6 @@
 package com.megamott.rl2_legengs.abstracts.repo.impl
 
-import android.widget.Toast
-import com.megamott.rl2_legengs.abstracts.entity.Question
 import com.megamott.rl2_legengs.abstracts.repo.LoginRepo
-import com.megamott.rl2_legengs.abstracts.util.NODE_QUESTIONS
-import com.megamott.rl2_legengs.abstracts.util.REF_DATABASE_ROOT
 
 class LoginRepoImplHardcore : LoginRepo{
 
