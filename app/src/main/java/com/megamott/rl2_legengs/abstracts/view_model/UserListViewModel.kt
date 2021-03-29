@@ -11,20 +11,19 @@ import com.megamott.rl2_legengs.abstracts.repo.impl.UserListImplFirebase
 import com.megamott.rl2_legengs.abstracts.view_model.dataLoadedListener.DataLoadListener
 import java.lang.StringBuilder
 
-class UserListViewModel : ViewModel() {
-    private lateinit var dataLoadListener: DataLoadListener
-    private lateinit var userListRepo: UserListRepo
-    private var userListLiveData: MutableLiveData<MutableList<User>> = MutableLiveData()
+class UserListViewModel : ViewModel(), DataLoadListener {
+    private val userListRepo: UserListRepo
     private var userList: MutableList<User> = ArrayList()
 
-    fun init(dataLoadListener: DataLoadListener) {
-        this.dataLoadListener = dataLoadListener
-        userListRepo = UserListImplFirebase(dataLoadListener)
-        userList = userListRepo.getUsers()
+    var userListLiveData: MutableLiveData<MutableList<User>> = MutableLiveData(userList)
+
+    init {
+        userListRepo = UserListImplFirebase
+        userList = userListRepo.getInitUsers(this)
     }
 
-    fun getUsersLiveData(): LiveData<MutableList<User>> {
+    override fun onLoad() {
+        userList = userListRepo.getUsers()
         userListLiveData.value = userList
-        return userListLiveData
     }
 }

@@ -14,7 +14,7 @@ import com.megamott.rl2_legengs.abstracts.view_model.UserListViewModel
 import com.megamott.rl2_legengs.abstracts.view_model.dataLoadedListener.DataLoadListener
 
 
-class UserListFragment : Fragment(), DataLoadListener {
+class UserListFragment : Fragment() {
     private lateinit var userListView : RecyclerView
     private lateinit var userListAdapter: UserListAdapter
     private val userListViewModel by viewModels<UserListViewModel>()
@@ -29,26 +29,15 @@ class UserListFragment : Fragment(), DataLoadListener {
         userListView = view.findViewById(R.id.user_list_recycler)
         userListView.setHasFixedSize(true)
         userListView.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
-        userListViewModel.init(this)
-        userListAdapter = userListViewModel.getUsersLiveData().value?.let { this.context?.let { it1 ->
-            UserListAdapter(it,
-                it1
-            )
-        } }!!
+        userListAdapter = UserListAdapter(this.context)
+        userListViewModel.userListLiveData.observe(viewLifecycleOwner, {
+            if (it != null) {
+                userListAdapter.addItems(it)
+            }
+        })
+
         userListView.adapter = userListAdapter
 
         return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onLoad() {
-        userListViewModel.getUsersLiveData().observe(viewLifecycleOwner, {
-            if (it != null) {
-                userListAdapter.notifyDataSetChanged()
-            }
-        })
     }
 }

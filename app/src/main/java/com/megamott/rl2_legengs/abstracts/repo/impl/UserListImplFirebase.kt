@@ -10,15 +10,19 @@ import com.megamott.rl2_legengs.abstracts.util.REF_DATABASE_ROOT
 import com.megamott.rl2_legengs.abstracts.util.initFirebase
 import com.megamott.rl2_legengs.abstracts.view_model.dataLoadedListener.DataLoadListener
 
-class UserListImplFirebase(private val dataLoadListener: DataLoadListener) : UserListRepo {
+object UserListImplFirebase : UserListRepo {
     private val usersList : MutableList<User> = ArrayList()
 
     override fun getUsers(): MutableList<User> {
-        loadUsers()
         return usersList
     }
 
-    private fun loadUsers() {
+    override fun getInitUsers(dataLoadListener: DataLoadListener): MutableList<User> {
+        loadUsers(dataLoadListener)
+        return usersList
+    }
+
+    private fun loadUsers(dataLoadListener: DataLoadListener) {
         initFirebase()
         val query = REF_DATABASE_ROOT.child(NODE_USER)
         query.addListenerForSingleValueEvent(object : ValueEventListener {
