@@ -37,7 +37,7 @@ class UserListAdapter(private val context: Context?) :
         holder.bind(userList[position])
     }
 
-    class UserViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(user: User) {
             itemView.user_list_element.text = user.name
         }
