@@ -1,17 +1,26 @@
 package com.megamott.rl2_legengs.abstracts.view_model
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import com.megamott.rl2_legengs.abstracts.entity.Question
-import com.megamott.rl2_legengs.abstracts.repo.QuestionsRepo
-import com.megamott.rl2_legengs.abstracts.repo.impl.QuestionRepoImplHardcore
+import com.megamott.rl2_legengs.abstracts.entity.local_data.Question
+import com.megamott.rl2_legengs.abstracts.entity.local_data.QuestionDatabase
+import com.megamott.rl2_legengs.abstracts.repo.QuestionRepo
+import com.megamott.rl2_legengs.abstracts.repo.impl.QuestionRepoImplRoom
 
-class QuestionViewModel(state: SavedStateHandle) : ViewModel() {
-    private val questionsRepo: QuestionsRepo = QuestionRepoImplHardcore()
+class QuestionViewModel(application: Application, state: SavedStateHandle) : AndroidViewModel(application) {
+    private val questionsRepo: QuestionRepo
     private val savedStateHandle = state
-    private val questions = questionsRepo.getQuestions()
+    private val questions : List<Question>?
     private var questionNumber: Int? = savedStateHandle[QUESTION_NUMBER] ?: 0
+
+    init {
+        val questionDao = QuestionDatabase.getDatabase(application).questionDao()
+        questionsRepo = QuestionRepoImplRoom(questionDao)
+//        questionsRepo.addQuestion()
+        questions = questionsRepo.getQuestions()
+    }
 
     var questionLiveData = MutableLiveData<Question>(questionNumber?.let { questions?.get(it) })
 

@@ -1,18 +1,25 @@
 package com.megamott.rl2_legengs.abstracts.repo.impl
 
-import com.megamott.rl2_legengs.abstracts.entity.Question
-import com.megamott.rl2_legengs.abstracts.repo.QuestionsRepo
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.megamott.rl2_legengs.abstracts.entity.local_data.Question
+import com.megamott.rl2_legengs.abstracts.repo.QuestionRepo
 
-class QuestionRepoImplHardcore : QuestionsRepo {
+class QuestionRepoImplHardcore : QuestionRepo {
 
     private val questionsList : MutableList<Question> = ArrayList()
 
     init {
-        questionsList.add(Question(1, "A", "AA", arrayListOf("AAA")))
-        questionsList.add(Question(2, "B", "BB", arrayListOf("BBB")))
+        questionsList.add(Question("A", "AA", "a 1 2 3"))
+        questionsList.add(Question("B", "BB", "b 1 2 3"))
     }
 
-    override fun getQuestions() : MutableList<Question> {
+    override fun getQuestions() : List<Question> {
         return questionsList
     }
+
+    override fun addQuestion() {
+        TODO("Not yet implemented")
+    }
+
 }
